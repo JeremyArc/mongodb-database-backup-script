@@ -2,7 +2,8 @@ import pandas as pd
 import pymongo
 from datetime import datetime
 import getpass
-
+import schedule
+import time
 
 def getMongoDBCredentials():
     print("Please enter mongodb credential data...")
@@ -50,11 +51,19 @@ def backupMongodDBCollectionToCSV(mongoDBUri, databaseName, collectionName):
 
     print(f"Backup saved to {backupFilePath}")
 
+def job(mongoDBConnectionUri, databaseName, collectionName):
+    backupMongodDBCollectionToCSV(mongoDBConnectionUri, databaseName, collectionName)
+
 def main():
     credentials = getMongoDBCredentials()
     mongoDBConnectionUri = constructMongoDBConnectionUri(credentials["host"], credentials["port"], credentials["username"], credentials["password"])
     collectionName = input("Enter collection name: ")
-    backupMongodDBCollectionToCSV(mongoDBConnectionUri, credentials["databaseName"], collectionName)
+    print("I'm working...")
+    schedule.every().wednesday.at("02:00").do(job, mongoDBConnectionUri, credentials["databaseName"], collectionName)
+
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 
 # In Python, each module has a special built-in attribute called __name__.
