@@ -1,37 +1,57 @@
-# MongoDB Backup Project
+# MongoDB collection backup scheduler
 
-This project demonstrates how to back up MongoDB data to a CSV file using Python. It uses the `pymongo`, `pandas`, and `schedule` libraries.
+This Python script provide a periodical MongoDB's collection backup script, there are also included docker-compose file
+for demonstrate when user have MongoDB database running with web based client to manipulate data within database.
 
-## Setup Instructions
 
-1. **Clone the repository** (or download the project files).
+## Overview
 
-2. **Navigate to the MongoDB backup directory**:
-    ```sh
-    cd web_scraping_project/mongodb_backup
+This script are going to do the following:
+
+1. Ask user for database credential, database name and collection to be backed up.
+2. Periodically back up data in .csv form based on configuration in the code.
+
+## Prerequisite
+
+1. install Python 3.12.x on your machine.
+
+    ```bash
+    brew install python
     ```
 
-3. **Create a virtual environment**:
-    ```sh
-    python -m venv venv
+2. install pipenv
+
+    ```bash
+    brew install pipenv
     ```
 
-4. **Activate the virtual environment**:
-    - On Windows:
-        ```sh
-        venv\Scripts\activate
-        ```
-    - On macOS/Linux:
-        ```sh
-        source venv/bin/activate
-        ```
+## Setup
 
-5. **Install the required libraries**:
-    ```sh
-    pip install -r requirements.txt
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/JeremyArc/mongodb-database-backup-script.git
+   cd mongodb-database-backup-script
+   ```
+
+2. Create and activate a virtual environment within this project:
+
+    ```bash
+    pipenv shell
     ```
 
-6. **Run the MongoDB backup script**:
-    ```sh
-    python backup.py
+3. Install dependencies 
+
+    ```bash
+    pipenv install
+    ```
+
+4. (Optional) Run MongoDB database using docker-compose.yaml file
+
+## Usage
+
+1. Run the script:
+
+    ```bash
+    python index.py
     ```
